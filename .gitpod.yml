@@ -6,12 +6,17 @@ tasks:
       ./google-cloud-sdk/install.sh
       rm google-cloud-sdk-358.0.0-linux-x86_64.tar.gz
     init: |
+      gp sync-done gc-sdk
+  - name: gcloud setting
+    init: |
+      gp sync-await gc-sdk
       gcloud auth login
       read -p "Enter Your GCP Project ID: " GCP_ID
       gcloud config set project $GCP_ID
       gcloud auth application-default login
   - name: neptune
     init: |
+      gp sync-await gc-sdk
       pip install neptune-client lightgbm neptune-lightgbm
       pip install google-cloud-bigquery
       pip install pandas
