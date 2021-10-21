@@ -22,3 +22,4 @@ tasks:
       pip install pandas_gbq
       pip install google-cloud-bigquery[bqstorage,pandas]
       pip install google-cloud-bigquery-storage
+    openMode: split-right
