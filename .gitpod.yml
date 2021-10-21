@@ -1,0 +1,5 @@
+tasks:
+  - name: initialize
+    init: |
+    pip install neptune-client lightgbm neptune-lightgbm
+    pip install graphviz    
