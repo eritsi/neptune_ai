@@ -15,7 +15,7 @@ tasks:
     init: |
       gp sync-await gc-sdk
       pip install neptune-client lightgbm neptune-lightgbm
-      pip install -r requirements.txt
+      pip install -r requirements.txt # pip freeze > requirements.txt
       jupyter notebook --ip=*
     openMode: split-right
 

@@ -1,6 +1,15 @@
+jupytext
+matplotlib
+optuna
 pandas
 pandas_gbq
+plotly
 pyarrow
+seaborn
+scikit-learn
+scipy
+
+numpy == 1.16.2
 
 google-api-core==1.14.2
 google-api-python-client==1.7.11
