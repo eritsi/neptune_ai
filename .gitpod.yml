@@ -16,10 +16,11 @@ tasks:
     init: |
       gp sync-await gc-sdk
       pip install neptune-client lightgbm neptune-lightgbm
-      pip install google-cloud-bigquery
-      pip install pandas
-      pip install pyarrow
-      pip install pandas_gbq
-      pip install google-cloud-bigquery[bqstorage,pandas]
-      pip install google-cloud-bigquery-storage
+      pip install -r requirements.txt
+      # pip install google-cloud-bigquery
+      # pip install pandas
+      # pip install pyarrow
+      # pip install pandas_gbq
+      # pip install google-cloud-bigquery[bqstorage,pandas]
+      # pip install google-cloud-bigquery-storage
     openMode: split-right
