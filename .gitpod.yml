@@ -5,22 +5,21 @@ tasks:
       tar -xvf google-cloud-sdk-358.0.0-linux-x86_64.tar.gz
       ./google-cloud-sdk/install.sh
       rm google-cloud-sdk-358.0.0-linux-x86_64.tar.gz
-      . ~/.bashrc 
-      # exec bash
+      . ~/.bashrc # exec bash
       gcloud auth login
       read -p "Enter Your GCP Project ID: " GCP_ID
       gcloud config set project $GCP_ID
       gcloud auth application-default login
       gp sync-done gc-sdk
-  - name: neptune and pips
+  - name: Install neptune, pip, jupyter 
     init: |
       gp sync-await gc-sdk
       pip install neptune-client lightgbm neptune-lightgbm
       pip install -r requirements.txt
-      # pip install google-cloud-bigquery
-      # pip install pandas
-      # pip install pyarrow
-      # pip install pandas_gbq
-      # pip install google-cloud-bigquery[bqstorage,pandas]
-      # pip install google-cloud-bigquery-storage
+      jupyter notebook --ip=*
     openMode: split-right
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8888
+    onOpen: open-preview

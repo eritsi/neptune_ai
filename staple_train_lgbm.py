@@ -4,8 +4,10 @@ from neptune.new.integrations.lightgbm import NeptuneCallback
 from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
 import pandas_gbq as gbq
+# from google.cloud import bigquery
+# from google.cloud import bigquery_storage
 from google.cloud import bigquery
-from google.cloud import bigquery_storage
+from google.cloud import bigquery_storage_v1beta1
 
 # Create run
 run = neptune.init(
@@ -21,6 +23,7 @@ neptune_callback = NeptuneCallback(run=run)
 # Prepare GCP setting & tables
 project = "eri-sandbox"
 bqclient = bigquery.Client(project=project, location="asia-northeast1")
+bqstorageclient = bigquery_storage_v1beta1.BigQueryStorageClient()
 
 sql = '''
             SELECT
@@ -35,7 +38,9 @@ sql = '''
 df = (
     bqclient.query(sql)
     .result()
-    .to_dataframe()
+    .to_dataframe(
+        bqstorage_client=bqstorageclient
+    )
 )
 
 #
