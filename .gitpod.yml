@@ -11,11 +11,15 @@ tasks:
       gcloud config set project $GCP_ID
       gcloud auth application-default login
       gp sync-done gc-sdk
-  - name: Install neptune, pip, jupyter 
+  - name: Install neptune, pip, jupyter, Configure jupytext
     init: |
       gp sync-await gc-sdk
-      pip install neptune-client lightgbm neptune-lightgbm
+      pip install neptune-client lightgbm neptune-lightgbm neptune-notebooks
       pip install -r requirements.txt # pip freeze > requirements.txt
+      jupyter notebook --generate-config
+      echo -e '\nc.NotebookApp.contents_manager_class = "jupytext.TextFileContentsManager"' >> ~/.jupyter/jupyter_notebook_config.py
+      echo -e '\nc.ContentsManager.default_jupytext_formats = "ipynb,py"' >> ~/.jupyter/jupyter_notebook_config.py
+      jupyter nbextension enable --py neptune-notebooks
       jupyter notebook --ip=*
     openMode: split-right
 
