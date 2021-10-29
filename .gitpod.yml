@@ -15,6 +15,7 @@ tasks:
 
       pip install neptune-client lightgbm neptune-lightgbm neptune-notebooks
       pip install -r requirements.txt # pip freeze > requirements.txt
+      pip install jupyter_contrib_nbextensions
       jupyter notebook --generate-config
       echo -e '\nc.NotebookApp.contents_manager_class = "jupytext.TextFileContentsManager"' >> ~/.jupyter/jupyter_notebook_config.py
       echo -e '\nc.ContentsManager.default_jupytext_formats = "ipynb,py"' >> ~/.jupyter/jupyter_notebook_config.py
