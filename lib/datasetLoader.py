@@ -40,7 +40,21 @@ class datasetLoader( object ):
     
     # データ読み込み処理
     def load_by_file( self, in_FilePath ):
+        """SQLファイルを実行し、dfに入れる
+        Parameters
+        ----------
+        in_FilePath : ファイルパス
+        
+        Returns
+        -------
+        df : pandasのdataframeが返る
 
+        Examples
+        --------
+        >>> import datasetLoader
+        >>> dataset_loader = datasetLoader()
+        >>> df = dataset_loader.load_by_file( "./test.sql" )
+        """
         whole_dataset = []
         lines = self.__filePathToLines( in_FilePath )
         whole_dataset  = self.__sqlToDataframe( lines )
@@ -49,7 +63,27 @@ class datasetLoader( object ):
 
     # データ読み込み処理
     def load( self, lines ):
-
+        """SQLを実行し、dfに入れる
+        Parameters
+        ----------
+        lines : SQL文
+        
+        Returns
+        -------
+        df : pandasのdataframeが返る
+        
+        Examples
+        --------
+        >>> import datasetLoader
+        >>> dataset_loader = datasetLoader()
+        >>> sql = '''
+            SELECT
+              *
+            FROM
+              `bigquery-public-data.baseball.schedules`
+          '''
+        >>> df = dataset_loader.load( sql )
+        """
         whole_dataset = []
         whole_dataset  = self.__sqlToDataframe( lines )
 
