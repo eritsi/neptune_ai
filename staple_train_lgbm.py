@@ -6,9 +6,8 @@ from sklearn.model_selection import train_test_split
 import pandas_gbq as gbq
 from lib.datasetLoader import datasetLoader
 
-dataset_loader = datasetLoader(  )
-
-df=dataset_loader.load_by_file( "./test.sql" )
+dataset_loader = datasetLoader()
+df = dataset_loader.load_by_file( "./test.sql" )
 
 df.head()
 
@@ -22,11 +21,6 @@ run = neptune.init(
 
 # Create neptune callback
 neptune_callback = NeptuneCallback(run=run)
-
-# Prepare GCP setting & tables
-project = "eri-sandbox"
-bqclient = bigquery.Client(project=project, location="asia-northeast1")
-bqstorageclient = bigquery_storage_v1beta1.BigQueryStorageClient()
 
 # Prepare data
 X, y = load_digits(return_X_y=True)
