@@ -4,10 +4,13 @@ from neptune.new.integrations.lightgbm import NeptuneCallback
 from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
 import pandas_gbq as gbq
-# from google.cloud import bigquery
-# from google.cloud import bigquery_storage
-from google.cloud import bigquery
-from google.cloud import bigquery_storage_v1beta1
+from lib.datasetLoader import datasetLoader
+
+dataset_loader = datasetLoader(  )
+
+df=dataset_loader.load_by_file( "./test.sql" )
+
+df.head()
 
 # Create run
 run = neptune.init(
@@ -24,27 +27,6 @@ neptune_callback = NeptuneCallback(run=run)
 project = "eri-sandbox"
 bqclient = bigquery.Client(project=project, location="asia-northeast1")
 bqstorageclient = bigquery_storage_v1beta1.BigQueryStorageClient()
-
-sql = '''
-            SELECT
-              *
-            FROM
-              `eri-sandbox.staple_result_dghbc_submission_sales_Mar.datamart_dghbc_avoid_leak`
-            ORDER BY
-              product_code
-          '''
-
-# read bq table through bqstorage_client
-df = (
-    bqclient.query(sql)
-    .result()
-    .to_dataframe(
-        bqstorage_client=bqstorageclient
-    )
-)
-
-#
-df.head(5)
 
 # Prepare data
 X, y = load_digits(return_X_y=True)

@@ -9,6 +9,7 @@ tasks:
       gcloud auth login
       read -p "Enter Your GCP Project ID: " GCP_ID
       gcloud config set project $GCP_ID
+      export GCLOUD_PROJECT=$GCP_ID
       gcloud auth application-default login
       gp sync-done gc-sdk
   - name: Install neptune, pip, jupyter, Configure jupytext
