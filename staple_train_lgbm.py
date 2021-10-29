@@ -33,6 +33,14 @@ X_train, X_test, y_train, y_test = train_test_split(
 lgb_train = lgb.Dataset(X_train, y_train)
 lgb_eval = lgb.Dataset(X_test, y_test, reference=lgb_train)
 
+X_train, y_train = df[['product_code', 'comp_cluster',
+                       'sales_count_before_1w', 'sales_count_before_2w', 'sales_count_before_3w', 'sales_count_before_4w', 
+                       'mean_2w_sales_during_2m', 'std_sales_count', 'pred_yoy_8w_2wLAG' ]], df['sales_count']
+model = lgb.LGBMRegressor(random_state=0)
+model.fit(X_train, y_train, callbacks=[NeptuneCallback(run=run)],)
+
+y_pred = model.predict(X_test)
+
 # Define parameters
 params = {
     "boosting_type": "gbdt",
